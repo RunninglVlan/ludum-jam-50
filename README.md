@@ -34,3 +34,9 @@ Island is surrounded by water, and each turn water level is raised +1 - or heigh
 There are 2 options of realisation:
 1) water is raised everywhere, including non-connected regions of island, so that the central cell of the upmentioned example is flood as well;
 2) water is raised only in connected cells: so that the central cell is not flood yet in the upmentioned examples. Thus, there should be a flag for marking if the cell is flood or not.
+
+h2.Player
+-----------------
+* Player's goal is to prevent island drowning as long as it's possible.
+* Player can raise +1 height on a cell 3x times per turn.
+* Player is not presented on an actual map.
