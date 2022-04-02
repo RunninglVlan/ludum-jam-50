@@ -10,11 +10,12 @@ public class Water : MonoBehaviour {
 
     }
 
-    public void raiseLevelInRealTime() 
+    public void raiseLevelInRealTime()
     {
-        var position = transform.position;
+        var thisTransform = transform;
+        var position = thisTransform.position;
         position.y += Time.deltaTime;
-        transform.position = position;
+        thisTransform.position = position;
     }
 
     [Button]

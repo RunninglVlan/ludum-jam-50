@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
     [SerializeField]
-    private bool isDrowned = false;
+    private bool isDrowned;
 
     Material cellMaterial;
     GameObject water;
@@ -20,11 +18,11 @@ public class Cell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        drownCell();
-        changeCellColor();
+        DrownCube();
+        ChangeCubeColor();
     }
 
-    public void changeCellColor() 
+    public void ChangeCubeColor() 
     {
         var cubeHeight = transform.position.y;
         if (!isDrowned)
@@ -53,9 +51,9 @@ public class Cell : MonoBehaviour
 
     }
 
-    public void drownCell()
+    public void DrownCell()
     {
-        if (water.transform.position.y > (this.transform.position.y+0.5))
+        if (water.transform.position.y > this.transform.position.y)
         {
             isDrowned = true;
         }

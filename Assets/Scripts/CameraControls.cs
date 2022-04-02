@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraControls : MonoBehaviour {
-    [SerializeField] private InputAction movement;
+    [SerializeField] private InputAction movement = null!;
     [SerializeField] private float movementSpeed = 1;
-    [SerializeField] private new Transform camera;
+    [SerializeField] private new Transform camera = null!;
     [SerializeField] private float rotationSensitivity = 1;
     [SerializeField] private float zoomSensitivity = 1;
 
