@@ -18,24 +18,24 @@ public class Cell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrownCube();
-        ChangeCubeColor();
+        DrownCell();
+        ChangeCellColor();
     }
 
-    public void ChangeCubeColor() 
+    public void ChangeCellColor() 
     {
-        var cubeHeight = transform.position.y;
+        var cellHeight = transform.position.y;
         if (!isDrowned)
         {
-            if (cubeHeight < 0.5)
+            if (cellHeight < 0.5)
             {
                 cellMaterial.SetColor("_Color", Color.green);
             }
-            else if (cubeHeight > 0.5 & cubeHeight < 1)
+            else if (cellHeight > 0.5 & cellHeight < 1)
             {
                 cellMaterial.SetColor("_Color", Color.yellow);
             }
-            else if (cubeHeight > 1 & cubeHeight < 1.5)
+            else if (cellHeight > 1 & cellHeight < 1.5)
             {
                 cellMaterial.SetColor("_Color", Color.red);
             }
