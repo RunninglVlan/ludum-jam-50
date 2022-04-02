@@ -4,6 +4,7 @@ public class Cell : MonoBehaviour
 {
     [SerializeField]
     private bool isDrowned;
+    [SerializeField] private GameObject selection = null!;
 
     Material cellMaterial;
     GameObject water;
@@ -58,4 +59,7 @@ public class Cell : MonoBehaviour
             isDrowned = true;
         }
     }
+
+    public void Deselect() => selection.SetActive(false);
+    public void Select() => selection.SetActive(true);
 }
