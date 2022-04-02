@@ -3,9 +3,13 @@ using UnityEngine.InputSystem;
 
 public class CameraControls : MonoBehaviour {
     [SerializeField] private InputAction movement;
-    [SerializeField] private float speed = 1;
+    [SerializeField] private float movementSpeed = 1;
     [SerializeField] private new Transform camera;
-    [SerializeField] private float sensitivity = 1;
+    [SerializeField] private float rotationSensitivity = 1;
+    [SerializeField] private float zoomSensitivity = 1;
+
+    private float zoomCurrent;
+    private float zoomTarget;
 
     void OnEnable() => movement.Enable();
     void OnDisable() => movement.Disable();
@@ -13,6 +17,7 @@ public class CameraControls : MonoBehaviour {
     void Update() {
         Move();
         Rotate();
+        Zoom();
     }
 
     private void Move() {
@@ -23,7 +28,7 @@ public class CameraControls : MonoBehaviour {
 
         var pivot = transform;
         var delta = vector.y * pivot.forward + vector.x * pivot.right;
-        pivot.position += delta * (Time.deltaTime * speed);
+        pivot.position += delta * (Time.deltaTime * movementSpeed);
     }
 
     private void Rotate() {
@@ -32,7 +37,17 @@ public class CameraControls : MonoBehaviour {
         }
 
         var mouse = Mouse.current.delta.ReadValue();
-        transform.localRotation *= Quaternion.Euler(0, mouse.x * sensitivity, 0);
-        camera.localRotation *= Quaternion.Euler(-mouse.y * sensitivity, 0, 0);
+        transform.localRotation *= Quaternion.Euler(0, mouse.x * rotationSensitivity, 0);
+        camera.localRotation *= Quaternion.Euler(-mouse.y * rotationSensitivity, 0, 0);
+    }
+
+    private void Zoom() {
+        var scroll = Mouse.current.scroll.ReadValue();
+        if (scroll.sqrMagnitude == 0) {
+            return;
+        }
+
+        var pivot = transform;
+        pivot.localPosition += camera.forward * scroll.y * zoomSensitivity;
     }
 }
