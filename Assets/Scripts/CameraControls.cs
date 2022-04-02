@@ -8,9 +8,6 @@ public class CameraControls : MonoBehaviour {
     [SerializeField] private float rotationSensitivity = 1;
     [SerializeField] private float zoomSensitivity = 1;
 
-    private float zoomCurrent;
-    private float zoomTarget;
-
     void OnEnable() => movement.Enable();
     void OnDisable() => movement.Disable();
 
@@ -48,6 +45,6 @@ public class CameraControls : MonoBehaviour {
         }
 
         var pivot = transform;
-        pivot.localPosition += camera.forward * scroll.y * zoomSensitivity;
+        pivot.localPosition += camera.forward * (scroll.y * zoomSensitivity);
     }
 }
