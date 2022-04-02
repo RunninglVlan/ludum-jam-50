@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Water : MonoBehaviour {
     void Update() {
-        var position = transform.position;
+        var thisTransform = transform;
+        var position = thisTransform.position;
         position.y += Time.deltaTime;
-        transform.position = position;
+        thisTransform.position = position;
     }
 }

@@ -1,26 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
     [SerializeField]
-    private bool isDrowned = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool isDrowned;
 
     // Update is called once per frame
     void Update()
     {
-        drownCube();
-        changeCubeColor();
+        DrownCube();
+        ChangeCubeColor();
     }
 
-    public void changeCubeColor() 
+    public void ChangeCubeColor()
     {
         var cubeRenderer = GetComponent<Renderer>();
         var cubeHeight = transform.position.y;
@@ -50,10 +42,10 @@ public class Cube : MonoBehaviour
 
     }
 
-    public void drownCube()
+    public void DrownCube()
     {
         var water = GameObject.Find("Water");
-        if (water.transform.position.y > this.transform.position.y)
+        if (water.transform.position.y > transform.position.y)
         {
             isDrowned = true;
         }
