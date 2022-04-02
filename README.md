@@ -40,3 +40,14 @@ h2.Player
 * Player's goal is to prevent island drowning as long as it's possible.
 * Player can raise +1 height on a cell 3x times per turn.
 * Player is not presented on an actual map.
+
+h2.Resources
+-----------------
+* Each turn unflooded cells generate resource units
+* Height rise requires K resource units (3 by default)
+* Already flooded cells are not raisable
+
+h2.Colorification
+-----------------
+* Water is bluish
+* Unflooded cells are green to yellow (0->N)
