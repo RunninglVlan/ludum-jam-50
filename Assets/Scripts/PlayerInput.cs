@@ -56,7 +56,7 @@ public class PlayerInput : MonoBehaviour {
             return;
         }
 
-        if (remainingCells == 0 || !resources.Has(cellCost)) {
+        if (selectedCell.isDrowned || remainingCells == 0 || !resources.Has(cellCost)) {
             return;
         }
 
