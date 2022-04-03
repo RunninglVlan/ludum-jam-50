@@ -13,7 +13,6 @@ public class Cell : MonoBehaviour
 
     private Material material = null!;
     private new Collider collider = null!;
-    private Water water = null!;
 
     public bool GotResources => collider.enabled;
 
@@ -21,17 +20,16 @@ public class Cell : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         collider = GetComponent<Collider>();
-        water = FindObjectOfType<Water>();
+        FindObjectOfType<Water>().Raised += DrownCell;
         var island = FindObjectOfType<Island>();
 
         var height = transform.position.y / island.CellHeight / island.maxHeight;
         material.SetColor(COLOR, gradient.Evaluate(height));
     }
 
-    // TODO: This should be called on water raise
-    public void DrownCell()
+    private void DrownCell(float waterHeight)
     {
-        if (water.transform.position.y > transform.position.y)
+        if (waterHeight > transform.position.y)
         {
             material.SetColor(COLOR, Color.blue);
         }

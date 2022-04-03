@@ -1,22 +1,36 @@
+using System;
+using System.Collections;
 using UnityEngine;
-using NaughtyAttributes;
 
 public class Water : MonoBehaviour {
+    public event Action<float> Raised = delegate { };
 
     [SerializeField]
     private float step = 0.5f;
+    [SerializeField]
+    private float animationSeconds = .5f;
 
-    public void raiseLevelInRealTime()
-    {
-        var thisTransform = transform;
-        var position = thisTransform.position;
-        position.y += Time.deltaTime;
-        thisTransform.position = position;
+    private float elapsedTime;
+
+    void Awake() {
+        FindObjectOfType<Game>().TurnEnded += raiseLevel;
     }
 
-    [Button]
-    public void raiseLevel()
+    private void raiseLevel()
     {
-        transform.position += new Vector3(0, step, 0);
+        elapsedTime = 0;
+        var start = transform.position;
+        var end = start + new Vector3(0, step, 0);
+        StartCoroutine(Raise());
+
+        IEnumerator Raise() {
+            while (elapsedTime < animationSeconds) {
+                transform.position = Vector3.Lerp(start, end, elapsedTime / animationSeconds);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Raised(transform.position.y);
+        }
     }
 }
