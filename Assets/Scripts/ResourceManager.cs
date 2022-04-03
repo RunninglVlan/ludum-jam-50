@@ -1,26 +1,24 @@
+using System;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    private int totalCounter;
-    private int turnCounter;
+    public event Action<int> ResourcesUpdated = delegate { };
 
-    public void CollectResources()
-    {
-        var island = FindObjectOfType<Island>();
+    private int counter;
 
-        foreach (Transform child in island.transform)
-        {
-            if (!child.GetComponent<Cell>().isDrowned)
-            {
-                turnCounter++;
-            }
-        }
+    void Awake() {
+        FindObjectOfType<Game>().TurnEnded += CollectTurnResources;
     }
 
-    public void addThisTurnResources() 
+    private void CollectTurnResources()
     {
-        totalCounter += turnCounter;
-        turnCounter = 0;
+        foreach (var cell in FindObjectsOfType<Cell>()) {
+            if (cell.GotResources && !cell.isDrowned) {
+                counter++;
+            }
+        }
+
+        ResourcesUpdated(counter);
     }
 }

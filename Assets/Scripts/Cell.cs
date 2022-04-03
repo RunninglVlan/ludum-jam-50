@@ -12,11 +12,15 @@ public class Cell : MonoBehaviour
     private Gradient gradient = null!;
 
     private Material material = null!;
+    private new Collider collider = null!;
     private Water water = null!;
 
-    void Start()
+    public bool GotResources => collider.enabled;
+
+    void Awake()
     {
         material = GetComponent<Renderer>().material;
+        collider = GetComponent<Collider>();
         water = FindObjectOfType<Water>();
         var island = FindObjectOfType<Island>();
 
@@ -35,5 +39,5 @@ public class Cell : MonoBehaviour
 
     public void Deselect() => selection.SetActive(false);
     public void Select() => selection.SetActive(true);
-    public void DisableSelection() => GetComponent<Collider>().enabled = false;
+    public void DisableSelection() => collider.enabled = false;
 }

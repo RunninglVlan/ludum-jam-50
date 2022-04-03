@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour {
+    public event Action TurnEnded = delegate { };
+
     private UIController uiController = null!;
     private CameraControls controls = null!;
     private PlayerInput input = null!;
@@ -29,8 +32,10 @@ public class Game : MonoBehaviour {
     }
 
     public void EndTurn() {
-        var islandDrowned = true; // TODO: Implement logic
-        if (islandDrowned) {
+        var islandDrowned = false; // TODO: Implement logic
+        if (!islandDrowned) {
+            TurnEnded();
+        } else {
             ShowEnd();
         }
     }
