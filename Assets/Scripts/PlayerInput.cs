@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour {
-    [SerializeField] private Cell cellPrefab = null!;
     [SerializeField] private int cellsPerTurn = 3;
 
     private new Camera camera = null!;
+    private Island island = null!;
     private Cell? selectedCell;
 
-    void Start() => camera = Camera.main!;
+    void Awake() {
+        camera = Camera.main!;
+        island = FindObjectOfType<Island>();
+    }
 
     void Update() {
         SelectCell();
@@ -49,10 +52,7 @@ public class PlayerInput : MonoBehaviour {
             return;
         }
 
-        var cellTransform = selectedCell.transform;
-        var position = cellTransform.position;
-        position.y += cellTransform.localScale.y;
-        Instantiate(cellPrefab, position, Quaternion.identity);
+        island.NewCellOn(selectedCell);
         cellsPerTurn--;
     }
 }

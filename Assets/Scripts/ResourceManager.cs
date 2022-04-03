@@ -7,11 +7,11 @@ public class ResourceManager : MonoBehaviour
 
     public void CollectResources()
     {
-        var cells = GameObject.Find("Island");
+        var island = FindObjectOfType<Island>();
 
-        foreach (Transform child in cells.transform)
+        foreach (Transform child in island.transform)
         {
-            if (!child.GetComponent<Cell>().isDrowned) 
+            if (!child.GetComponent<Cell>().isDrowned)
             {
                 turnCounter++;
             }
