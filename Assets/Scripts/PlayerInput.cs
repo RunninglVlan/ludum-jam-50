@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour {
+    [SerializeField] private Cell cellPrefab = null!;
+
     private new Camera camera = null!;
     private Cell? selectedCell;
 
@@ -9,6 +11,7 @@ public class PlayerInput : MonoBehaviour {
 
     void Update() {
         SelectCell();
+        PlaceCell();
     }
 
     private void SelectCell() {
@@ -34,5 +37,16 @@ public class PlayerInput : MonoBehaviour {
         }
 
         selectedCell = null;
+    }
+
+    private void PlaceCell() {
+        if (selectedCell == null || !Mouse.current.leftButton.wasPressedThisFrame) {
+            return;
+        }
+
+        var cellTransform = selectedCell.transform;
+        var position = cellTransform.position;
+        position.y += cellTransform.localScale.y;
+        Instantiate(cellPrefab, position, Quaternion.identity);
     }
 }
