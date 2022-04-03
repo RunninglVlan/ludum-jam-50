@@ -27,4 +27,16 @@ public class Game : MonoBehaviour {
         controls.enabled = value;
         input.enabled = value;
     }
+
+    public void EndTurn() {
+        var islandDrowned = true; // TODO: Implement logic
+        if (!islandDrowned) {
+            ShowEnd();
+        }
+    }
+
+    private void ShowEnd() {
+        SetActiveControls(false);
+        uiController.Show<EndUI>(end => end.SetDays(2)); // TODO: Implement count
+    }
 }
