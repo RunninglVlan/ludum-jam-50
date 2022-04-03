@@ -1,3 +1,7 @@
+Label, Button {
+    font-size: 24px;
+}
+
 .center-container {
     align-items: center;
     justify-content: center;
