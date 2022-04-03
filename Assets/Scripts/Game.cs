@@ -8,6 +8,7 @@ public class Game : MonoBehaviour {
     private CameraControls controls = null!;
     private PlayerInput input = null!;
     private Island island = null!;
+    private int turns;
 
     void Awake() {
         uiController = FindObjectOfType<UIController>();
@@ -34,7 +35,10 @@ public class Game : MonoBehaviour {
         input.enabled = value;
     }
 
-    public void EndTurn() => TurnEnded();
+    public void EndTurn() {
+        turns++;
+        TurnEnded();
+    }
 
     private void CheckIfIslandDrowned(float _) {
         if (island.IsDrowned) {
@@ -44,6 +48,6 @@ public class Game : MonoBehaviour {
 
     private void ShowEnd() {
         SetActiveControls(false);
-        uiController.Show<EndUI>(end => end.SetDays(2)); // TODO: Implement count
+        uiController.Show<EndUI>(end => end.SetDays(turns));
     }
 }

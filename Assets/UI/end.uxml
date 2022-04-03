@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=98496081d0a930a4d87b518a356d4291&amp;type=3#style" />
     <ui:VisualElement class="center-container">
         <ui:VisualElement class="row-container">
-            <ui:Label text="You survived for" />
+            <ui:Label text="You delayed the inevitable for" />
             <ui:Label text="[count]" name="days" />
             <ui:Label text="days" />
         </ui:VisualElement>
