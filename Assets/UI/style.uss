@@ -1,10 +1,10 @@
-.intro-container {
+.center-container {
     align-items: center;
     justify-content: center;
     height: 100%;
 }
 
-.resource-container {
+.row-container {
     flex-direction: row;
 }
 

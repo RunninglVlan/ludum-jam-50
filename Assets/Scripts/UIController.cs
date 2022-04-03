@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIController : MonoBehaviour {
@@ -5,11 +6,22 @@ public class UIController : MonoBehaviour {
 
     void Awake() => uis = FindObjectsOfType<UI>(includeInactive: true);
 
+    [Obsolete("Use Show instead")]
     public void SetActive<T>(bool value) where T: UI {
         foreach (var ui in uis) {
             ui.SetActive(false);
             if (ui is T) {
                 ui.SetActive(value);
+            }
+        }
+    }
+
+    public void Show<T>(Action<T>? action = null) where T: UI {
+        foreach (var ui in uis) {
+            ui.SetActive(false);
+            if (ui is T t) {
+                ui.SetActive(true);
+                action?.Invoke(t);
             }
         }
     }
