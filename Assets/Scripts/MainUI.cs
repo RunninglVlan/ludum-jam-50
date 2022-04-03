@@ -6,8 +6,7 @@ public class MainUI : UI {
     protected override void Awake() {
         base.Awake();
         resources = documentRoot.Q<Label>("resources");
-        var resourceManager = FindObjectOfType<ResourceManager>();
-        resourceManager.ResourcesUpdated += SetResources;
+        FindObjectOfType<ResourceManager>().ResourcesUpdated += SetResources;
         var game = FindObjectOfType<Game>();
         documentRoot.Q<Button>("end-turn").clicked += game.EndTurn;
     }
