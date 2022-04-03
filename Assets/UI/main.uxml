@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=98496081d0a930a4d87b518a356d4291&amp;type=3#style" />
     <ui:VisualElement class="row-container">
         <ui:Label text="Resources:" />
-        <ui:Label text="0" name="resource-count" />
+        <ui:Label text="0" name="resources" />
     </ui:VisualElement>
     <ui:Button text="End turn" name="end-turn" class="end-turn" />
 </ui:UXML>

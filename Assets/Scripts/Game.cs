@@ -14,14 +14,17 @@ public class Game : MonoBehaviour {
     void Start() => ShowStart();
 
     private void ShowStart() {
-        controls.enabled = false;
-        input.enabled = false;
-        uiController.SetActive<StartUI>(true);
+        SetActiveControls(false);
+        uiController.Show<StartUI>();
     }
 
     public void StartGame() {
-        controls.enabled = true;
-        input.enabled = true;
-        uiController.SetActive<MainUI>(true);
+        SetActiveControls(true);
+        uiController.Show<MainUI>();
+    }
+
+    private void SetActiveControls(bool value) {
+        controls.enabled = value;
+        input.enabled = value;
     }
 }
