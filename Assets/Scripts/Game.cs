@@ -7,15 +7,13 @@ public class Game : MonoBehaviour {
     private UIController uiController = null!;
     private CameraControls controls = null!;
     private PlayerInput input = null!;
-    private Island island = null!;
     private int turns;
 
     void Awake() {
         uiController = FindObjectOfType<UIController>();
         controls = FindObjectOfType<CameraControls>();
         input = FindObjectOfType<PlayerInput>();
-        island = FindObjectOfType<Island>();
-        FindObjectOfType<Water>().Raised += CheckIfIslandDrowned;
+        FindObjectOfType<Island>().Drowned += ShowEnd;
     }
 
     void Start() => ShowStart();
@@ -38,12 +36,6 @@ public class Game : MonoBehaviour {
     public void EndTurn() {
         turns++;
         TurnEnded();
-    }
-
-    private void CheckIfIslandDrowned(float _) {
-        if (island.IsDrowned) {
-            ShowEnd();
-        }
     }
 
     private void ShowEnd() {

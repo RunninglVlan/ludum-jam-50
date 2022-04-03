@@ -20,14 +20,13 @@ public class Cell : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         collider = GetComponent<Collider>();
-        FindObjectOfType<Water>().Raised += DrownCell;
         var island = FindObjectOfType<Island>();
 
         var height = transform.position.y / island.CellHeight / island.maxHeight;
         material.SetColor(COLOR, gradient.Evaluate(height));
     }
 
-    private void DrownCell(float waterHeight)
+    public void DrownCell(float waterHeight)
     {
         if (waterHeight > transform.position.y)
         {

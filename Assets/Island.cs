@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Island : MonoBehaviour {
+    public event Action Drowned = delegate { };
+
     [SerializeField] private Cell cellPrefab = null!;
     [SerializeField] private int size = 5;
     [SerializeField] public int maxHeight = 4;
@@ -10,9 +14,9 @@ public class Island : MonoBehaviour {
     public float CellHeight { get; private set; }
     private readonly List<Cell> cells = new();
     public IEnumerable<Cell> DryCells => cells.Where(it => !it.isDrowned);
-    public bool IsDrowned => !DryCells.Any();
 
     void Awake() {
+        FindObjectOfType<Water>().Raised += DrownCells;
         CellHeight = cellPrefab.transform.localScale.y;
 
         var center = (float)size / 2 - .5f;
@@ -45,5 +49,21 @@ public class Island : MonoBehaviour {
         var cell = Instantiate(cellPrefab, position, Quaternion.identity, transform);
         cells.Add(cell);
         return cell;
+    }
+
+    private void DrownCells(float waterHeight) {
+        var drowned = 0;
+        foreach (var cell in cells) {
+            if (!cell.isDrowned) {
+                cell.DrownCell(waterHeight);
+            }
+            if (cell.isDrowned) {
+                drowned++;
+            }
+        }
+
+        if (drowned == cells.Count) {
+            Drowned();
+        }
     }
 }
