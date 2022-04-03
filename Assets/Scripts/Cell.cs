@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    private static readonly int COLOR = Shader.PropertyToID("_Color");
+
     [SerializeField]
     public bool isDrowned;
     [SerializeField] 
@@ -10,14 +12,14 @@ public class Cell : MonoBehaviour
     private Gradient gradient = null!;
 
     private Material material = null!;
-    GameObject water = null!;
+    private Water water = null!;
 
     void Start()
     {
         material = GetComponent<Renderer>().material;
-        water = GameObject.Find("Water");
+        water = FindObjectOfType<Water>();
 
-        material.SetColor("_Color", gradient.Evaluate(0.9f));
+        material.SetColor(COLOR, gradient.Evaluate(0.9f));
     }
 
     void Update()
@@ -33,24 +35,24 @@ public class Cell : MonoBehaviour
         {
             if (cellHeight < 0.5)
             {
-                material.SetColor("_Color", Color.green);
+                material.SetColor(COLOR, Color.green);
             }
             else if (cellHeight > 0.5 & cellHeight < 1)
             {
-                material.SetColor("_Color", Color.yellow);
+                material.SetColor(COLOR, Color.yellow);
             }
             else if (cellHeight > 1 & cellHeight < 1.5)
             {
-                material.SetColor("_Color", Color.red);
+                material.SetColor(COLOR, Color.red);
             }
             else
             {
-                material.SetColor("_Color", Color.blue);
+                material.SetColor(COLOR, Color.blue);
             }
         }
         else 
         {
-            material.SetColor("_Color", Color.blue);
+            material.SetColor(COLOR, Color.blue);
         }
     }
 
