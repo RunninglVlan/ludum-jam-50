@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour {
     [SerializeField] private Cell cellPrefab = null!;
+    [SerializeField] private int cellsPerTurn = 3;
 
     private new Camera camera = null!;
     private Cell? selectedCell;
@@ -44,9 +45,14 @@ public class PlayerInput : MonoBehaviour {
             return;
         }
 
+        if (cellsPerTurn == 0) {
+            return;
+        }
+
         var cellTransform = selectedCell.transform;
         var position = cellTransform.position;
         position.y += cellTransform.localScale.y;
         Instantiate(cellPrefab, position, Quaternion.identity);
+        cellsPerTurn--;
     }
 }
