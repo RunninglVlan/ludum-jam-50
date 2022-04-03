@@ -1,23 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    public int totalCounter = 0;
-    public int currentRoundCounter = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private int totalCounter;
+    private int turnCounter;
 
     public void CollectResources()
     {
@@ -27,15 +13,14 @@ public class ResourceManager : MonoBehaviour
         {
             if (!child.GetComponent<Cell>().isDrowned) 
             {
-                currentRoundCounter++;
+                turnCounter++;
             }
         }
     }
 
     public void addThisTurnResources() 
     {
-        totalCounter += currentRoundCounter;
-        currentRoundCounter = 0;
+        totalCounter += turnCounter;
+        turnCounter = 0;
     }
-
 }

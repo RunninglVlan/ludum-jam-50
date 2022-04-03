@@ -9,21 +9,17 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private Gradient gradient = null!;
 
-    Material cellMaterial;
+    private Material material = null!;
     GameObject water = null!;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        cellMaterial = GetComponent<Renderer>().material;
+        material = GetComponent<Renderer>().material;
         water = GameObject.Find("Water");
 
-        cellMaterial.SetColor("_Color", gradient.Evaluate(0.9f));
+        material.SetColor("_Color", gradient.Evaluate(0.9f));
     }
 
-    // Update is called once per frame
     void Update()
     {
         //DrownCell();
@@ -37,31 +33,30 @@ public class Cell : MonoBehaviour
         {
             if (cellHeight < 0.5)
             {
-                cellMaterial.SetColor("_Color", Color.green);
+                material.SetColor("_Color", Color.green);
             }
             else if (cellHeight > 0.5 & cellHeight < 1)
             {
-                cellMaterial.SetColor("_Color", Color.yellow);
+                material.SetColor("_Color", Color.yellow);
             }
             else if (cellHeight > 1 & cellHeight < 1.5)
             {
-                cellMaterial.SetColor("_Color", Color.red);
+                material.SetColor("_Color", Color.red);
             }
             else
             {
-                cellMaterial.SetColor("_Color", Color.blue);
+                material.SetColor("_Color", Color.blue);
             }
         }
         else 
         {
-            cellMaterial.SetColor("_Color", Color.blue);
+            material.SetColor("_Color", Color.blue);
         }
-
     }
 
     public void DrownCell()
     {
-        if (water.transform.position.y > this.transform.position.y)
+        if (water.transform.position.y > transform.position.y)
         {
             isDrowned = true;
         }

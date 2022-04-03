@@ -6,11 +6,6 @@ public class Water : MonoBehaviour {
     [SerializeField]
     private float step = 0.5f;
 
-    void Update() {
-        //Commit for the sake of commit ;)
-
-    }
-
     public void raiseLevelInRealTime()
     {
         var thisTransform = transform;
@@ -22,6 +17,6 @@ public class Water : MonoBehaviour {
     [Button]
     public void raiseLevel()
     {
-        this.transform.position += new Vector3(0, step, 0);;
+        transform.position += new Vector3(0, step, 0);
     }
 }
