@@ -30,7 +30,7 @@ public class Game : MonoBehaviour {
 
     public void EndTurn() {
         var islandDrowned = true; // TODO: Implement logic
-        if (!islandDrowned) {
+        if (islandDrowned) {
             ShowEnd();
         }
     }
