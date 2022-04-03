@@ -7,16 +7,19 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] private int counter = 25;
 
+    private Island island = null!;
+
     void Awake() {
         FindObjectOfType<Game>().TurnEnded += CollectTurnResources;
+        island = FindObjectOfType<Island>();
     }
 
     void Start() => ResourcesUpdated(counter);
 
     private void CollectTurnResources()
     {
-        foreach (var cell in FindObjectsOfType<Cell>()) {
-            if (cell.GotResources && !cell.isDrowned) {
+        foreach (var cell in island.DryCells) {
+            if (cell.GotResources) {
                 counter++;
             }
         }

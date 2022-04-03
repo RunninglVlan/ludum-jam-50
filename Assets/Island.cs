@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Island : MonoBehaviour {
@@ -6,6 +8,9 @@ public class Island : MonoBehaviour {
     [SerializeField] public int maxHeight = 4;
 
     public float CellHeight { get; private set; }
+    private readonly List<Cell> cells = new();
+    public IEnumerable<Cell> DryCells => cells.Where(it => !it.isDrowned);
+    public bool IsDrowned => !DryCells.Any();
 
     void Awake() {
         CellHeight = cellPrefab.transform.localScale.y;
@@ -37,6 +42,8 @@ public class Island : MonoBehaviour {
     }
 
     private Cell NewCellAt(Vector3 position) {
-        return Instantiate(cellPrefab, position, Quaternion.identity, transform);
+        var cell = Instantiate(cellPrefab, position, Quaternion.identity, transform);
+        cells.Add(cell);
+        return cell;
     }
 }
