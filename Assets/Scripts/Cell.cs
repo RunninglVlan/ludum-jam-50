@@ -18,52 +18,22 @@ public class Cell : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         water = FindObjectOfType<Water>();
+        var island = FindObjectOfType<Island>();
 
-        material.SetColor(COLOR, gradient.Evaluate(0.9f));
+        var height = transform.position.y / island.CellHeight / island.maxHeight;
+        material.SetColor(COLOR, gradient.Evaluate(height));
     }
 
-    void Update()
+    // TODO: This should be called on water raise
+    public void DrownCell()
     {
-        //DrownCell();
-        //ChangeCellColor();
-    }
-
-    public void ChangeCellColor() 
-    {
-        var cellHeight = transform.position.y;
-        if (!isDrowned)
-        {
-            if (cellHeight < 0.5)
-            {
-                material.SetColor(COLOR, Color.green);
-            }
-            else if (cellHeight > 0.5 & cellHeight < 1)
-            {
-                material.SetColor(COLOR, Color.yellow);
-            }
-            else if (cellHeight > 1 & cellHeight < 1.5)
-            {
-                material.SetColor(COLOR, Color.red);
-            }
-            else
-            {
-                material.SetColor(COLOR, Color.blue);
-            }
-        }
-        else 
+        if (water.transform.position.y > transform.position.y)
         {
             material.SetColor(COLOR, Color.blue);
         }
     }
 
-    public void DrownCell()
-    {
-        if (water.transform.position.y > transform.position.y)
-        {
-            isDrowned = true;
-        }
-    }
-
     public void Deselect() => selection.SetActive(false);
     public void Select() => selection.SetActive(true);
+    public void DisableSelection() => GetComponent<Collider>().enabled = false;
 }
