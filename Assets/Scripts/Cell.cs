@@ -31,6 +31,7 @@ public class Cell : MonoBehaviour
     {
         if (waterHeight > transform.position.y)
         {
+            isDrowned = true;
             material.SetColor(COLOR, Color.blue);
         }
     }
