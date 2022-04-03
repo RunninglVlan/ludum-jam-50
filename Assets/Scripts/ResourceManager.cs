@@ -5,11 +5,13 @@ public class ResourceManager : MonoBehaviour
 {
     public event Action<int> ResourcesUpdated = delegate { };
 
-    private int counter;
+    [SerializeField] private int counter = 25;
 
     void Awake() {
         FindObjectOfType<Game>().TurnEnded += CollectTurnResources;
     }
+
+    void Start() => ResourcesUpdated(counter);
 
     private void CollectTurnResources()
     {
@@ -19,6 +21,13 @@ public class ResourceManager : MonoBehaviour
             }
         }
 
+        ResourcesUpdated(counter);
+    }
+
+    public bool Has(int count) => counter >= count;
+
+    public void Take(int count) {
+        counter -= count;
         ResourcesUpdated(counter);
     }
 }

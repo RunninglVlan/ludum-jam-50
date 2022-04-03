@@ -3,15 +3,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour {
     [SerializeField] private int cellsPerTurn = 3;
+    [SerializeField] private int cellCost = 5;
 
     private new Camera camera = null!;
     private Island island = null!;
+    private ResourceManager resources = null!;
     private Cell? selectedCell;
+    private int remainingCells;
 
     void Awake() {
         camera = Camera.main!;
         island = FindObjectOfType<Island>();
+        resources = FindObjectOfType<ResourceManager>();
+        FindObjectOfType<Game>().TurnEnded += ResetCellsPerTurn;
+        ResetCellsPerTurn();
     }
+
+    private void ResetCellsPerTurn() => remainingCells = cellsPerTurn;
 
     void Update() {
         SelectCell();
@@ -48,11 +56,12 @@ public class PlayerInput : MonoBehaviour {
             return;
         }
 
-        if (cellsPerTurn == 0) {
+        if (remainingCells == 0 || !resources.Has(cellCost)) {
             return;
         }
 
         island.NewCellOn(selectedCell);
-        cellsPerTurn--;
+        remainingCells--;
+        resources.Take(cellCost);
     }
 }
