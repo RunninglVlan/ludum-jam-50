@@ -3,24 +3,31 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
-    private bool isDrowned;
-    [SerializeField] private GameObject selection = null!;
+    public bool isDrowned;
+    [SerializeField] 
+    private GameObject selection = null!;
+    [SerializeField]
+    private Gradient gradient = null!;
 
     Material cellMaterial;
-    GameObject water;
+    GameObject water = null!;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         cellMaterial = GetComponent<Renderer>().material;
         water = GameObject.Find("Water");
+
+        cellMaterial.SetColor("_Color", gradient.Evaluate(0.9f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        DrownCell();
-        ChangeCellColor();
+        //DrownCell();
+        //ChangeCellColor();
     }
 
     public void ChangeCellColor() 
