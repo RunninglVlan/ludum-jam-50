@@ -1,0 +1,8 @@
+.resource-container {
+    flex-direction: row;
+}
+
+.end-turn {
+    position: absolute;
+    bottom: 0;
+}
